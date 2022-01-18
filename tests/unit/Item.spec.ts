@@ -1,4 +1,4 @@
-import { Item } from "../../src/modules/orders/entities/Item"
+import { Item } from "../../src/domain/entities/Item"
 
 test('should be able to calculate items volume', () => {
     const item = new Item('1', 'Guitar', 5000, 50,50,50,22)

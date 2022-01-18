@@ -1,5 +1,5 @@
-import { OrderDiscount } from '../../src/modules/orders/entities/OrderDiscount'
-import { Order } from '../../src/modules/orders/entities/Order'
+import { OrderDiscount } from '../../src/domain/entities/OrderDiscount'
+import { Order } from '../../src/domain/entities/Order'
 
 test('should not be able to create a order using an invalid cpf', () => {
     const cpf = '0000000000'

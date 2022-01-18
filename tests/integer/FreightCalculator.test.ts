@@ -1,5 +1,5 @@
-import { FreightCalculator } from "../../src/modules/orders/entities/FreightCalculator"
-import { Item } from "../../src/modules/orders/entities/Item"
+import { FreightCalculator } from "../../src/domain/services/FreightCalculator"
+import { Item } from "../../src/domain/entities/Item"
 
 test('Should be able to calculate items freight', () => {
     const item = new Item('1', 'Guitar', 5000, 50, 50, 50, 22)

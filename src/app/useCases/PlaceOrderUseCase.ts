@@ -1,11 +1,11 @@
-import { ZipCodeCalculatorAPI } from "src/shared/providers/ZipCodeCalculatorAPI/ZipCodeCalculatorAPI";
-import { ZipCodeCalculatorAPIMemory } from "../../../shared/providers/ZipCodeCalculatorAPI/inMemory/ZipCodeCalculatorAPIMemory";
+import { ZipCodeCalculatorAPI } from "src/domain/gateway/ZipCodeCalculatorAPI";
+import { ZipCodeCalculatorAPIMemory } from "../../infra/gateway/inMemory/ZipCodeCalculatorAPIMemory";
 import { PlaceOrderPayloadDTO, PlaceOrderPayloadResponse } from "../dtos/PlaceOrderDTO";
-import { FreightCalculator } from "../entities/FreightCalculator";
-import { Order } from "../entities/Order";
-import { IDiscountRepository } from "../repositories/IDiscountRepository";
-import { IItemRepository } from "../repositories/IItemRepository";
-import { IOrderRepository } from "../repositories/IOrderRepository";
+import { FreightCalculator } from "../../domain/services/FreightCalculator";
+import { Order } from "../../domain/entities/Order";
+import { IDiscountRepository } from "../../domain/repositories/IDiscountRepository";
+import { IItemRepository } from "../../domain/repositories/IItemRepository";
+import { IOrderRepository } from "../../domain/repositories/IOrderRepository";
 
 export class PlaceOrderUseCase {
     zipCodeCalculatorAPI: ZipCodeCalculatorAPIMemory

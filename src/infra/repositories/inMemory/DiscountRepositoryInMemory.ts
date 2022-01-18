@@ -1,5 +1,5 @@
-import { OrderDiscount } from "../../entities/OrderDiscount";
-import { IDiscountRepository } from "../IDiscountRepository";
+import { OrderDiscount } from "../../../domain/entities/OrderDiscount";
+import { IDiscountRepository } from "../../../domain/repositories/IDiscountRepository";
 
 export class DiscountRepositoryInMemory implements IDiscountRepository {
     discount: OrderDiscount[]

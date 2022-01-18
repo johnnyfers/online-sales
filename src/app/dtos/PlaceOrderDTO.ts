@@ -1,4 +1,4 @@
-import { OrderItem } from "../entities/OrderItem"
+import { OrderItem } from "../../domain/entities/OrderItem"
 
 export type PlaceOrderPayloadDTO = {
     cpf: string

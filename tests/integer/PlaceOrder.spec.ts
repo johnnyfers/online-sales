@@ -1,8 +1,8 @@
-import { OrderRepositoryInMemory } from "../../src/modules/orders/repositories/inMemory/OrderRepositoryInMemory"
-import { DiscountRepositoryInMemory } from "../../src/modules/orders/repositories/inMemory/DiscountRepositoryInMemory"
-import { ItemRepositoryInMemory } from "../../src/modules/orders/repositories/inMemory/ItemRepositoryInMemory"
-import { PlaceOrderUseCase } from "../../src/modules/orders/useCases/PlaceOrderUseCase"
-import { ZipCodeCalculatorAPIMemory } from "../../src/shared/providers/ZipCodeCalculatorAPI/inMemory/ZipCodeCalculatorAPIMemory"
+import { OrderRepositoryInMemory } from "../../src/infra/repositories/inMemory/OrderRepositoryInMemory"
+import { DiscountRepositoryInMemory } from "../../src/infra/repositories/inMemory/DiscountRepositoryInMemory"
+import { ItemRepositoryInMemory } from "../../src/infra/repositories/inMemory/ItemRepositoryInMemory"
+import { PlaceOrderUseCase } from "../../src/app/useCases/PlaceOrderUseCase"
+import { ZipCodeCalculatorAPIMemory } from "../../src/infra/gateway/inMemory/ZipCodeCalculatorAPIMemory"
 
 test('Should be able to order with discount', () => {
     const payload = {

@@ -1,5 +1,5 @@
-import { Order } from "../../entities/Order";
-import { IOrderRepository } from "../IOrderRepository";
+import { Order } from "../../../domain/entities/Order";
+import { IOrderRepository } from "../../../domain/repositories/IOrderRepository";
 
 export class OrderRepositoryInMemory implements IOrderRepository{
     orders: Order[]
