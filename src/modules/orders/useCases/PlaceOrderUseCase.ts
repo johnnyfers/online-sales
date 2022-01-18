@@ -1,41 +1,42 @@
+import { ZipCodeCalculatorAPI } from "src/shared/providers/ZipCodeCalculatorAPI/ZipCodeCalculatorAPI";
+import { ZipCodeCalculatorAPIMemory } from "../../../shared/providers/ZipCodeCalculatorAPI/inMemory/ZipCodeCalculatorAPIMemory";
 import { PlaceOrderPayloadDTO, PlaceOrderPayloadResponse } from "../dtos/PlaceOrderDTO";
 import { FreightCalculator } from "../entities/FreightCalculator";
-import { Item } from "../entities/Item";
 import { Order } from "../entities/Order";
-import { OrderDiscount } from "../entities/OrderDiscount";
+import { IDiscountRepository } from "../repositories/IDiscountRepository";
+import { IItemRepository } from "../repositories/IItemRepository";
+import { IOrderRepository } from "../repositories/IOrderRepository";
 
 export class PlaceOrderUseCase {
-    discount: OrderDiscount[]
-    orders: Order[]
-    items: Item[]
+    zipCodeCalculatorAPI: ZipCodeCalculatorAPIMemory
+    itemRepository: IItemRepository
+    discountRepository: IDiscountRepository
+    orderRepository: IOrderRepository
 
-    constructor() {
-        this.discount = [
-            new OrderDiscount('20D88SS', 10, new Date('2022-10-10')),
-            new OrderDiscount('20D88SS-Expired', 10, new Date('2021-10-10')),
-        ]
-        this.items = [
-            new Item('1', 'Guitar', 1000, 50,50,50,22)
-        ]
-        this.orders = []
+    constructor(itemRepository: IItemRepository, discountRepository: IDiscountRepository, orderRepository: IOrderRepository, zipCodeCalculatorAPI: ZipCodeCalculatorAPI) {
+        this.itemRepository = itemRepository
+        this.discountRepository = discountRepository
+        this.orderRepository = orderRepository
+        this.zipCodeCalculatorAPI = zipCodeCalculatorAPI
     }
 
     execute(payload: PlaceOrderPayloadDTO): PlaceOrderPayloadResponse {
         const order = new Order(payload.cpf)
+        const distance = this.zipCodeCalculatorAPI.calculate(payload.zipCode, '22222222')
         payload.items.forEach((orderItem) => {
-            const item = this.items.find(item=> item.id === orderItem.id)
-            if(!item) throw new Error('Item not found')
+            const item = this.itemRepository.getById(orderItem.id)
+            if (!item) throw new Error('Item not found')
             order.addItem(orderItem.id, item.price, orderItem.quantity)
-            order.freight += FreightCalculator.calculate(1000, item) * orderItem.quantity
+            order.freight += FreightCalculator.calculate(distance, item) * orderItem.quantity
         })
 
         if (payload.discount) {
-            const discount = this.discount.find(discount => discount.code === payload.discount)
+            const discount = this.discountRepository.getByCode(payload.discount)
             if (discount) order.addDiscount(discount)
         }
 
         const total = order.getTotal()
-        this.orders.push(order)
+        this.orderRepository.save(order)
 
         return {
             total,
